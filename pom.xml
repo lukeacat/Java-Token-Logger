@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>asf</groupId>
+  	<artifactId>asf</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<name>asf</name>
+  
+  	<repositories>
+  		<repository>
+    		<name>jcenter</name>
+    		<id>bintray-jcenter</id>
+   			<url>https://jcenter.bintray.com</url>
+		</repository>
+  	</repositories>
+  	
+  	<dependencies>
+  		<dependency>
+  			<groupId>com.github.sarxos</groupId>
+  			<artifactId>webcam-capture</artifactId>
+  			<version>0.3.12</version>
+  		</dependency>
+  		<dependency>
+    		<groupId>club.minnced</groupId>
+    		<artifactId>discord-webhooks</artifactId>
+    		<version>0.5.6</version>
+		</dependency>
+	</dependencies>
+	
+	
+	    <build>
+        <finalName>dateutils</finalName>
+        <plugins>
+
+            <!-- download source code in Eclipse, best practice -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                </configuration>
+            </plugin>
+
+            <!-- Set a compiler level -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+
+        <!-- Maven Shade Plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>2.3</version>
+          <executions>
+             <!-- Run shade goal on package phase -->
+            <execution>
+            <phase>package</phase>
+            <goals>
+                <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <!-- add Main-Class to manifest file -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>asf.Main</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+              </execution>
+          </executions>
+        </plugin>
+
+        </plugins>
+    </build>
+</project>
